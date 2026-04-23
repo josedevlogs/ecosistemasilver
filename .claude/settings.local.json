@@ -2,7 +2,14 @@
   "permissions": {
     "allow": [
       "Bash(npx create-next-app@latest . --typescript --tailwind --eslint --app --src-dir --import-alias \"@/*\" --yes)",
-      "Bash(npx shadcn@latest init --defaults)"
+      "Bash(npx shadcn@latest init --defaults)",
+      "Bash(npx shadcn@latest add navigation-menu badge card separator avatar --yes)",
+      "Bash(npm run:*)",
+      "Bash(npx tsc:*)",
+      "Bash(npx shadcn@latest add card-stack)",
+      "Bash(npm install:*)",
+      "Bash(npx shadcn@latest add \"https://ui.aceternity.com/r/globe.json\")",
+      "Bash(npx shadcn@latest add globe)"
     ]
   }
 }
