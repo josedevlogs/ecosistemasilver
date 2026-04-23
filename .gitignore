@@ -36,10 +36,9 @@ yarn-error.log*
 # vercel
 .vercel
 
-# OpenNext / Cloudflare Workers
+# local OpenNext / wrangler artifacts (not used in static export)
 .open-next
-.dev.vars
-.wrangler/state
+.wrangler
 
 # typescript
 *.tsbuildinfo
