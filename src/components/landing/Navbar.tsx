@@ -39,8 +39,8 @@ export function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
             <div className="relative w-7 h-7 rounded-md overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--silver)] to-[var(--gold)] opacity-90" />
-              <span className="absolute inset-0 flex items-center justify-center text-[oklch(0.08_0.018_258)] text-xs font-bold tracking-tight">
+              <div className="absolute inset-0 bg-gradient-to-br from-[var(--silver-light)] to-[var(--silver)] opacity-95" />
+              <span className="absolute inset-0 flex items-center justify-center text-[oklch(0.18_0.01_260)] text-xs font-bold tracking-tight">
                 ES
               </span>
             </div>

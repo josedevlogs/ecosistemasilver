@@ -14,7 +14,7 @@ export function CTAFinal() {
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 opacity-50"
         style={{
-          backgroundImage: "radial-gradient(oklch(0.66 0.020 242 / 0.4) 1.5px, transparent 1.5px)",
+          backgroundImage: "radial-gradient(oklch(0.62 0.010 260 / 0.35) 1.5px, transparent 1.5px)",
           backgroundSize: "28px 28px",
         }}
       />
@@ -39,7 +39,7 @@ export function CTAFinal() {
             <span
               className="bg-clip-text text-transparent"
               style={{
-                backgroundImage: "linear-gradient(135deg, var(--silver) 0%, var(--gold) 100%)",
+                backgroundImage: "linear-gradient(135deg, var(--silver) 0%, var(--foreground) 100%)",
               }}
             >
               la descubra.

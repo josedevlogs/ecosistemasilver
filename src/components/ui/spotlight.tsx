@@ -13,8 +13,8 @@ export function Spotlight({
 }: SpotlightProps) {
   const color =
     variant === "light"
-      ? "oklch(0.66 0.020 242 / 0.18)"
-      : "oklch(0.32 0.09 255 / 0.25)";
+      ? "oklch(0.62 0.010 260 / 0.16)"
+      : "oklch(0.32 0.012 260 / 0.22)";
 
   return (
     <div

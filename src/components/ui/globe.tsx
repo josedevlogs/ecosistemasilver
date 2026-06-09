@@ -17,9 +17,9 @@ const BASE_CONFIG: COBEOptions = {
   diffuse: 1.8,
   mapSamples: 20000,
   mapBrightness: 5,
-  baseColor:   [0.88, 0.90, 0.94],   // silver-blue land
-  markerColor: [0.18, 0.48, 0.95],   // executive blue markers
-  glowColor:   [0.82, 0.88, 0.98],   // soft blue glow
+  baseColor:   [0.88, 0.89, 0.91],
+  markerColor: [0.28, 0.30, 0.34],
+  glowColor:   [0.90, 0.91, 0.93],
   scale: 1,
   offset: [0, 0],
   markers: [
@@ -38,9 +38,25 @@ const BASE_CONFIG: COBEOptions = {
 
 interface GlobeProps {
   className?: string;
+  interactive?: boolean;
+  markers?: COBEOptions["markers"];
+  rotationSpeed?: number;
+  mapBrightness?: number;
+  baseColor?: COBEOptions["baseColor"];
+  glowColor?: COBEOptions["glowColor"];
+  diffuse?: number;
 }
 
-export function Globe({ className }: GlobeProps) {
+export function Globe({
+  className,
+  interactive = true,
+  markers = BASE_CONFIG.markers,
+  rotationSpeed = 0.003,
+  mapBrightness = BASE_CONFIG.mapBrightness,
+  baseColor = BASE_CONFIG.baseColor,
+  glowColor = BASE_CONFIG.glowColor,
+  diffuse = BASE_CONFIG.diffuse,
+}: GlobeProps) {
   const canvasRef    = useRef<HTMLCanvasElement>(null);
   const globeRef     = useRef<ReturnType<typeof createGlobe> | null>(null);
   const rafRef       = useRef<number | null>(null);
@@ -59,16 +75,23 @@ export function Globe({ className }: GlobeProps) {
 
     globeRef.current = createGlobe(canvas, {
       ...BASE_CONFIG,
+      baseColor,
+      diffuse,
+      glowColor,
+      mapBrightness,
+      markers,
       width:  size() * 2,
       height: size() * 2,
     });
 
     // Animation loop
     const tick = () => {
-      if (pointerDown.current === null) phiRef.current += 0.003;
+      if (!interactive || pointerDown.current === null) {
+        phiRef.current += rotationSpeed;
+      }
 
       globeRef.current?.update({
-        phi:    phiRef.current + rSpring.get(),
+        phi:    phiRef.current + (interactive ? rSpring.get() : 0),
         width:  size() * 2,
         height: size() * 2,
       });
@@ -98,21 +121,25 @@ export function Globe({ className }: GlobeProps) {
       <canvas
         ref={canvasRef}
         className="w-full h-full opacity-0 transition-opacity duration-700"
-        style={{ cursor: "grab" }}
+        style={{ cursor: interactive ? "grab" : "default" }}
         onPointerDown={(e) => {
+          if (!interactive) return;
           pointerDown.current = e.clientX - pointerDelta.current;
           (e.target as HTMLElement).setPointerCapture(e.pointerId);
           (e.target as HTMLElement).style.cursor = "grabbing";
         }}
         onPointerUp={(e) => {
+          if (!interactive) return;
           pointerDown.current = null;
           (e.target as HTMLElement).style.cursor = "grab";
         }}
         onPointerOut={(e) => {
+          if (!interactive) return;
           pointerDown.current = null;
           (e.target as HTMLElement).style.cursor = "grab";
         }}
         onPointerMove={(e) => {
+          if (!interactive) return;
           if (pointerDown.current === null) return;
           const delta = e.clientX - pointerDown.current;
           pointerDelta.current = delta;
